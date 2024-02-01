@@ -31,6 +31,11 @@ function toceni_LED_zaporny () {
         }
     }
 }
+input.onButtonPressed(Button.B, function () {
+    prekazka_front()
+    najeti_na_caru()
+    basic.pause(5000)
+})
 function prekazka_front () {
     if (kBit.ultra() <= 10) {
         kBit.carStop()
