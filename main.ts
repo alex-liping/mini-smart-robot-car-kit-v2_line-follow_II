@@ -1,20 +1,29 @@
 function najeti_na_caru () {
     if (kBit.lineSensor(KBitMotorObs.LeftSide) == 0 && kBit.lineSensor(KBitMotorObs.RightSide) == 0) {
+        serial.writeValue("left", kBit.lineSensor(KBitMotorObs.LeftSide))
+        serial.writeValue("right", kBit.lineSensor(KBitMotorObs.RightSide))
+        basic.pause(100)
         kBit.led(KBitColor.Blue)
         kBit.run(KBitDir.RunForward, 20)
-        if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1) {
-            kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, 10)
-            kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, 30)
-            if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
-                kBit.carStop()
-            }
+    }
+    if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1) {
+        najel_zleva = 1
+        najel_zprava = 0
+        kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, 10)
+        kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, 30)
+        if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
+            kBit.carStop()
+            basic.pause(1000)
         }
-        if (kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
-            kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, 10)
-            kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, 30)
-            if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
-                kBit.carStop()
-            }
+    }
+    if (kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
+        najel_zprava = 1
+        najel_zleva = 0
+        kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, 10)
+        kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, 30)
+        if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
+            kBit.carStop()
+            basic.pause(1000)
         }
     }
 }
@@ -31,16 +40,16 @@ function toceni_LED_zaporny () {
         }
     }
 }
-input.onButtonPressed(Button.B, function () {
-    prekazka_front()
-    najeti_na_caru()
-    basic.pause(5000)
-})
+function jed_po_care () {
+	
+}
 function prekazka_front () {
     if (kBit.ultra() <= 10) {
         kBit.carStop()
         kBit.led(KBitColor.Red)
         basic.pause(2000)
+    } else {
+        kBit.run(KBitDir.RunForward, 15)
     }
 }
 function toceni_LED_kladny () {
@@ -58,6 +67,8 @@ function toceni_LED_kladny () {
 }
 let _do = 0
 let od = 0
+let najel_zprava = 0
+let najel_zleva = 0
 let range: neopixel.Strip = null
 let strip: neopixel.Strip = null
 let left_line = 0
@@ -79,5 +90,18 @@ strip.showColor(neopixel.colors(NeoPixelColors.Green))
 basic.pause(500)
 strip.showColor(neopixel.colors(NeoPixelColors.Black))
 basic.forever(function () {
-	
+    if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
+        kBit.run(KBitDir.RunForward, 20)
+        kBit.led(KBitColor.Green)
+    }
+    while (kBit.lineSensor(KBitMotorObs.LeftSide) == 0 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
+        kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, -5)
+        kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, 30)
+    }
+    music.play(music.tonePlayable(262, music.beat(BeatFraction.Whole)), music.PlaybackMode.InBackground)
+    while (kBit.lineSensor(KBitMotorObs.RightSide) == 0 && kBit.lineSensor(KBitMotorObs.LeftSide) == 1) {
+        kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, 30)
+        kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, -5)
+    }
+    music.play(music.tonePlayable(698, music.beat(BeatFraction.Whole)), music.PlaybackMode.InBackground)
 })
