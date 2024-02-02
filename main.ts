@@ -1,8 +1,5 @@
 function najeti_na_caru () {
     if (kBit.lineSensor(KBitMotorObs.LeftSide) == 0 && kBit.lineSensor(KBitMotorObs.RightSide) == 0) {
-        serial.writeValue("left", kBit.lineSensor(KBitMotorObs.LeftSide))
-        serial.writeValue("right", kBit.lineSensor(KBitMotorObs.RightSide))
-        basic.pause(100)
         kBit.led(KBitColor.Blue)
         kBit.run(KBitDir.RunForward, 20)
     }
@@ -41,7 +38,18 @@ function toceni_LED_zaporny () {
     }
 }
 function jed_po_care () {
-	
+    if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
+        kBit.run(KBitDir.RunForward, 30)
+        kBit.led(KBitColor.Green)
+    }
+    while (kBit.lineSensor(KBitMotorObs.LeftSide) == 0 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
+        kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, -10)
+        kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, 30)
+    }
+    while (kBit.lineSensor(KBitMotorObs.RightSide) == 0 && kBit.lineSensor(KBitMotorObs.LeftSide) == 1) {
+        kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, 30)
+        kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, -10)
+    }
 }
 function prekazka_front () {
     if (kBit.ultra() <= 10) {
@@ -89,19 +97,7 @@ basic.pause(200)
 strip.showColor(neopixel.colors(NeoPixelColors.Green))
 basic.pause(500)
 strip.showColor(neopixel.colors(NeoPixelColors.Black))
+najeti_na_caru()
 basic.forever(function () {
-    if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
-        kBit.run(KBitDir.RunForward, 30)
-        kBit.led(KBitColor.Green)
-    }
-    while (kBit.lineSensor(KBitMotorObs.LeftSide) == 0 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
-        kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, -10)
-        kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, 30)
-    }
-    music.play(music.tonePlayable(262, music.beat(BeatFraction.Sixteenth)), music.PlaybackMode.InBackground)
-    while (kBit.lineSensor(KBitMotorObs.RightSide) == 0 && kBit.lineSensor(KBitMotorObs.LeftSide) == 1) {
-        kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, 30)
-        kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, -10)
-    }
-    music.play(music.tonePlayable(698, music.beat(BeatFraction.Sixteenth)), music.PlaybackMode.InBackground)
+    jed_po_care()
 })
