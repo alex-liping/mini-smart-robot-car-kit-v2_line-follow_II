@@ -8,7 +8,7 @@ function najeti_na_caru () {
     if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1) {
         najel_zleva = 1
         najel_zprava = 0
-        kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, 10)
+        kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, 0)
         kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, 30)
         if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
             kBit.carStop()
@@ -18,7 +18,7 @@ function najeti_na_caru () {
     if (kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
         najel_zprava = 1
         najel_zleva = 0
-        kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, 10)
+        kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, 0)
         kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, 30)
         if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
             kBit.carStop()
@@ -87,6 +87,7 @@ function jed_po_care () {
 function prekazka_front () {
     if (kBit.ultra() <= 10) {
         kBit.carStop()
+        kBit.ledBrightness(255)
         kBit.led(KBitColor.Red)
         basic.pause(2000)
     } else {
