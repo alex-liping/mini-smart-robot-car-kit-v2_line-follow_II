@@ -25,6 +25,19 @@ function najeti_na_caru () {
     }
 }
 function toceni_LED_zaporny () {
+    for (let index = 0; index < 1; index++) {
+        od = 18
+        _do = 1
+        for (let index = 0; index < 18; index++) {
+            range = strip.range(od, _do)
+            range.showColor(neopixel.colors(NeoPixelColors.Yellow))
+            basic.pause(10)
+            range.showColor(neopixel.colors(NeoPixelColors.Black))
+            od += -1
+        }
+    }
+}
+function toceni_LED_zaporny_pomaly () {
     for (let index = 0; index < 3; index++) {
         od = 18
         _do = 1
@@ -37,6 +50,19 @@ function toceni_LED_zaporny () {
         }
     }
 }
+function toceni_LED_kladny_pomaly () {
+    for (let index = 0; index < 3; index++) {
+        od = 0
+        _do = 1
+        for (let index = 0; index < 18; index++) {
+            range = strip.range(od, _do)
+            range.showColor(neopixel.colors(NeoPixelColors.Yellow))
+            basic.pause(20)
+            range.showColor(neopixel.colors(NeoPixelColors.Black))
+            od += 1
+        }
+    }
+}
 function jed_po_care () {
     if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
         kBit.run(KBitDir.RunForward, 30)
@@ -45,10 +71,12 @@ function jed_po_care () {
     while (kBit.lineSensor(KBitMotorObs.LeftSide) == 0 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
         kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, -10)
         kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, 30)
+        toceni_LED_zaporny()
     }
     while (kBit.lineSensor(KBitMotorObs.RightSide) == 0 && kBit.lineSensor(KBitMotorObs.LeftSide) == 1) {
         kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, 30)
         kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, -10)
+        toceni_LED_kladny()
     }
 }
 function prekazka_front () {
@@ -61,13 +89,13 @@ function prekazka_front () {
     }
 }
 function toceni_LED_kladny () {
-    for (let index = 0; index < 3; index++) {
+    for (let index = 0; index < 1; index++) {
         od = 0
         _do = 1
         for (let index = 0; index < 18; index++) {
             range = strip.range(od, _do)
             range.showColor(neopixel.colors(NeoPixelColors.Yellow))
-            basic.pause(20)
+            basic.pause(10)
             range.showColor(neopixel.colors(NeoPixelColors.Black))
             od += 1
         }
@@ -88,8 +116,8 @@ basic.pause(500)
 strip.showColor(neopixel.colors(NeoPixelColors.Black))
 range = strip.range(1, 1)
 basic.pause(200)
-toceni_LED_kladny()
-toceni_LED_zaporny()
+toceni_LED_kladny_pomaly()
+toceni_LED_zaporny_pomaly()
 strip.showColor(neopixel.colors(NeoPixelColors.Green))
 basic.pause(500)
 strip.showColor(neopixel.colors(NeoPixelColors.Black))
