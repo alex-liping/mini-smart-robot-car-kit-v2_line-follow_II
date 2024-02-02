@@ -25,6 +25,7 @@ function najeti_na_caru () {
             basic.pause(1000)
         }
     }
+    prekazka_front()
 }
 function toceni_LED_zaporny () {
     for (let index = 0; index < 1; index++) {
@@ -83,6 +84,7 @@ function jed_po_care () {
         kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, -10)
         toceni_LED_kladny()
     }
+    prekazka_front()
 }
 function prekazka_front () {
     if (kBit.ultra() <= 10) {
