@@ -91,17 +91,17 @@ basic.pause(500)
 strip.showColor(neopixel.colors(NeoPixelColors.Black))
 basic.forever(function () {
     if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
-        kBit.run(KBitDir.RunForward, 20)
+        kBit.run(KBitDir.RunForward, 30)
         kBit.led(KBitColor.Green)
     }
     while (kBit.lineSensor(KBitMotorObs.LeftSide) == 0 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
-        kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, -5)
+        kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, -10)
         kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, 30)
     }
-    music.play(music.tonePlayable(262, music.beat(BeatFraction.Whole)), music.PlaybackMode.InBackground)
+    music.play(music.tonePlayable(262, music.beat(BeatFraction.Sixteenth)), music.PlaybackMode.InBackground)
     while (kBit.lineSensor(KBitMotorObs.RightSide) == 0 && kBit.lineSensor(KBitMotorObs.LeftSide) == 1) {
         kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, 30)
-        kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, -5)
+        kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, -10)
     }
-    music.play(music.tonePlayable(698, music.beat(BeatFraction.Whole)), music.PlaybackMode.InBackground)
+    music.play(music.tonePlayable(698, music.beat(BeatFraction.Sixteenth)), music.PlaybackMode.InBackground)
 })
