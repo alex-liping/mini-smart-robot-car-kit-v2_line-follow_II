@@ -2,6 +2,8 @@ function najeti_na_caru () {
     if (kBit.lineSensor(KBitMotorObs.LeftSide) == 0 && kBit.lineSensor(KBitMotorObs.RightSide) == 0) {
         kBit.led(KBitColor.Blue)
         kBit.run(KBitDir.RunForward, 20)
+        kBit.ledBrightness(255)
+        kBit.led(KBitColor.Red)
     }
     if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1) {
         najel_zleva = 1
@@ -68,6 +70,7 @@ function jed_po_care () {
         range = strip.range(6, 6)
         range.showColor(neopixel.colors(NeoPixelColors.Blue))
         kBit.run(KBitDir.RunForward, 30)
+        kBit.ledBrightness(255)
         kBit.led(KBitColor.Green)
     }
     while (kBit.lineSensor(KBitMotorObs.LeftSide) == 0 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
