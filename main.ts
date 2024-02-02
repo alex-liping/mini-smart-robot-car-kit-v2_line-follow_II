@@ -65,6 +65,8 @@ function toceni_LED_kladny_pomaly () {
 }
 function jed_po_care () {
     if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
+        range = strip.range(6, 6)
+        range.showColor(neopixel.colors(NeoPixelColors.Blue))
         kBit.run(KBitDir.RunForward, 30)
         kBit.led(KBitColor.Green)
     }
