@@ -1,6 +1,6 @@
 function najeti_na_caru () {
     while (kBit.lineSensor(KBitMotorObs.LeftSide) == 0 && kBit.lineSensor(KBitMotorObs.RightSide) == 0) {
-        kBit.run(KBitDir.RunForward, 20)
+        kBit.run(KBitDir.RunForward, 15)
         prekazka_front()
         kBit.ledBrightness(255)
         kBit.led(KBitColor.Red)
@@ -10,23 +10,25 @@ function najeti_na_caru () {
         while (kBit.lineSensor(KBitMotorObs.RightSide) == 0) {
             najel_zleva = 1
             najel_zprava = 0
-            kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Back, 20)
-            kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, 20)
+            kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Back, 15)
+            kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, 15)
         }
         kBit.ledBrightness(255)
         kBit.led(KBitColor.Green)
         kBit.carStop()
+        basic.pause(1000)
     }
     if (kBit.lineSensor(KBitMotorObs.LeftSide) == 0 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
         while (kBit.lineSensor(KBitMotorObs.LeftSide) == 0) {
             najel_zleva = 0
             najel_zprava = 1
-            kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, 20)
-            kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Back, 20)
+            kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, 15)
+            kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Back, 15)
         }
         kBit.ledBrightness(255)
         kBit.led(KBitColor.Green)
         kBit.carStop()
+        basic.pause(1000)
     }
 }
 function toceni_LED_zaporny () {
@@ -72,6 +74,17 @@ function jed_po_care () {
     if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
         range = strip.range(6, 6)
         range.showColor(neopixel.colors(NeoPixelColors.Blue))
+        if (najel_zleva == 1) {
+            while (kBit.lineSensor(KBitMotorObs.LeftSide) == 1 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
+                kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, -10)
+                kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, 30)
+            }
+        } else {
+            while (kBit.lineSensor(KBitMotorObs.LeftSide) == 1 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
+                kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, 30)
+                kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, -10)
+            }
+        }
         kBit.run(KBitDir.RunForward, 30)
         kBit.ledBrightness(255)
         kBit.led(KBitColor.Green)
