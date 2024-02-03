@@ -93,7 +93,7 @@ function prekazka_front () {
         kBit.carStop()
         kBit.ledBrightness(255)
         kBit.led(KBitColor.Red)
-        basic.pause(2000)
+        basic.pause(1000)
     } else {
         kBit.run(KBitDir.RunForward, 15)
     }
