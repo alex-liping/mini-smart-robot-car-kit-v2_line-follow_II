@@ -1,6 +1,7 @@
 function najeti_na_caru () {
     while (kBit.lineSensor(KBitMotorObs.LeftSide) == 0 && kBit.lineSensor(KBitMotorObs.RightSide) == 0) {
         kBit.run(KBitDir.RunForward, 20)
+        prekazka_front()
         kBit.ledBrightness(255)
         kBit.led(KBitColor.Red)
     }
@@ -136,5 +137,5 @@ basic.pause(500)
 strip.showColor(neopixel.colors(NeoPixelColors.Black))
 najeti_na_caru()
 basic.forever(function () {
-	
+    jed_po_care()
 })
