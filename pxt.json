@@ -6,7 +6,8 @@
         "radio": "*",
         "microphone": "*",
         "apprentice_car": "github:resolute-support/pxt-apprentice_car#v1.1.7",
-        "maqueen": "github:dfrobot/pxt-maqueen#v1.7.2"
+        "maqueen": "github:dfrobot/pxt-maqueen#v1.7.2",
+        "MaqueenPlus": "github:dfrobot/pxt-dfrobot-maqueenplus#v1.5.1"
     },
     "files": [
         "main.blocks",
