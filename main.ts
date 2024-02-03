@@ -1,31 +1,31 @@
 function najeti_na_caru () {
-    if (kBit.lineSensor(KBitMotorObs.LeftSide) == 0 && kBit.lineSensor(KBitMotorObs.RightSide) == 0) {
+    while (kBit.lineSensor(KBitMotorObs.LeftSide) == 0 && kBit.lineSensor(KBitMotorObs.RightSide) == 0) {
         kBit.run(KBitDir.RunForward, 20)
         kBit.ledBrightness(255)
         kBit.led(KBitColor.Red)
-    } else {
-        if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1 && kBit.lineSensor(KBitMotorObs.RightSide) == 0) {
-            while (kBit.lineSensor(KBitMotorObs.RightSide) == 0) {
-                najel_zleva = 1
-                najel_zprava = 0
-                kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Back, 20)
-                kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, 20)
-            }
-            kBit.ledBrightness(255)
-            kBit.led(KBitColor.Green)
-            kBit.carStop()
+    }
+    kBit.carStop()
+    if (kBit.lineSensor(KBitMotorObs.LeftSide) == 1 && kBit.lineSensor(KBitMotorObs.RightSide) == 0) {
+        while (kBit.lineSensor(KBitMotorObs.RightSide) == 0) {
+            najel_zleva = 1
+            najel_zprava = 0
+            kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Back, 20)
+            kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Forward, 20)
         }
-        if (kBit.lineSensor(KBitMotorObs.LeftSide) == 0 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
-            while (kBit.lineSensor(KBitMotorObs.LeftSide) == 0) {
-                najel_zleva = 0
-                najel_zprava = 1
-                kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, 20)
-                kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Back, 20)
-            }
-            kBit.ledBrightness(255)
-            kBit.led(KBitColor.Green)
-            kBit.carStop()
+        kBit.ledBrightness(255)
+        kBit.led(KBitColor.Green)
+        kBit.carStop()
+    }
+    if (kBit.lineSensor(KBitMotorObs.LeftSide) == 0 && kBit.lineSensor(KBitMotorObs.RightSide) == 1) {
+        while (kBit.lineSensor(KBitMotorObs.LeftSide) == 0) {
+            najel_zleva = 0
+            najel_zprava = 1
+            kBit.motor(KBitMotorObs.LeftSide, KBitMotorDir.Forward, 20)
+            kBit.motor(KBitMotorObs.RightSide, KBitMotorDir.Back, 20)
         }
+        kBit.ledBrightness(255)
+        kBit.led(KBitColor.Green)
+        kBit.carStop()
     }
 }
 function toceni_LED_zaporny () {
